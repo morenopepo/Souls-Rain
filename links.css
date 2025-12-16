@@ -1,17 +1,12 @@
+/* VARIABLES FUTURISTAS */
 :root {
-    --primary: #00d4ff;
-    --secondary: #9400d3;
-    --bg-dark: #0a0a0a;
-    --glass: rgba(255, 255, 255, 0.03);
+    --primary: #00d4ff; /* Azul neón */
+    --secondary: #9400d3; /* Morado neón */
+    --bg-dark: #050505; /* Fondo oscuro casi negro */
+    --glass: rgba(255, 255, 255, 0.05); /* Efecto cristalino */
+    --text: #e0e0e0; /* Color de texto claro */
 }
-nav {
-    padding: 20px 10%;
-    background: rgba(0, 0, 0, 0.8);
-    border-bottom: 2px solid var(--primary);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+
 * {
     margin: 0;
     padding: 0;
@@ -21,15 +16,16 @@ nav {
 body {
     font-family: 'Rajdhani', sans-serif;
     background-color: var(--bg-dark);
-    color: #fff;
+    color: var(--text);
     display: flex;
-    justify-content: center;
-    padding: 40px 20px;
+    flex-direction: column;
+    align-items: center;
     min-height: 100vh;
     overflow-x: hidden;
+    background: radial-gradient(circle at center, #111 0%, #000 100%);
 }
 
-/* Efecto de línea de escaneo retro-futurista */
+/* EFECTO DE LÍNEA DE ESCANEO (SCANLINE) */
 .scanline {
     width: 100%;
     height: 100px;
@@ -39,6 +35,7 @@ body {
     position: fixed;
     bottom: 100%;
     animation: scanline 6s linear infinite;
+    pointer-events: none;
 }
 
 @keyframes scanline {
@@ -46,65 +43,126 @@ body {
     100% { bottom: -100%; }
 }
 
-.container {
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-    z-index: 2;
+/* Cuadrícula de fondo */
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
 }
 
-header {
-    margin-bottom: 30px;
+/* BARRA DE NAVEGACIÓN (Navbar) */
+.links-navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10%;
+    background: rgba(0, 0, 0, 0.9);
+    border-bottom: 1px solid var(--primary);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.logo-small {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: #fff;
+    letter-spacing: 2px;
+}
+
+.logo-small span {
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary);
+}
+
+.links-navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.links-navbar ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Orbitron';
+    font-size: 0.75rem;
+    transition: 0.3s;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+}
+
+.links-navbar ul li a:hover {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 15px var(--primary);
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container {
+    max-width: 550px;
+    width: 90%;
+    margin-top: 120px; 
+    text-align: center;
+    padding-bottom: 50px;
 }
 
 .profile-pic {
-    width: 80px;
-    height: 80px;
-    background: var(--bg-dark);
-    border: 2px solid var(--primary);
+    width: 90px;
+    height: 90px;
+    border: 3px solid var(--primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 15px;
-    box-shadow: 0 0 20px var(--primary);
+    margin: 0 auto 20px;
+    box-shadow: 0 0 25px var(--primary);
+    background: #000;
 }
 
 .profile-pic span {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: bold;
+    font-family: 'Orbitron';
+    font-size: 1.8rem;
     color: var(--primary);
-    font-size: 1.5rem;
 }
 
-h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 4px;
+h1.glitch {
+    font-family: 'Orbitron';
+    font-size: 2.5rem;
+    letter-spacing: 5px;
     color: #fff;
-    text-shadow: 0 0 10px var(--primary);
 }
 
 .subtitle {
     color: var(--primary);
-    text-transform: uppercase;
     font-size: 0.9rem;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
 }
 
-/* Caja de Motivación */
+/* CAJA DE MOTIVACIÓN Estilo "Glass" */
 .motivation-box {
     background: var(--glass);
-    border: 1px solid rgba(148, 0, 211, 0.3);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    font-style: italic;
-    font-size: 1.1rem;
-    line-height: 1.4;
+    border-left: 4px solid var(--secondary);
+    padding: 25px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(5px);
 }
 
-/* Tarjetas de Links */
+.motivation-box p {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+/* LISTA DE ENLACES GENERALES */
 .links-grid {
     display: flex;
     flex-direction: column;
@@ -112,69 +170,187 @@ h1 {
 }
 
 .link-card {
-    background: var(--glass);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 18px;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
     text-decoration: none;
     color: #fff;
-    font-weight: 500;
-    font-size: 1.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
+    font-family: 'Orbitron';
+    font-size: 1rem;
     transition: 0.4s;
-    backdrop-filter: blur(5px);
 }
 
 .link-card:hover {
     background: var(--primary);
     color: #000;
-    transform: translateY(-3px);
-    box-shadow: 0 0 25px var(--primary);
+    box-shadow: 0 0 30px var(--primary);
+    transform: translateY(-5px);
 }
 
-/* Sección Suscripción */
-.call-to-action {
-    margin-top: 40px;
+/* --- SECCIÓN: JUEGOS DESTACADOS --- */
+.game-showcase {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.game-showcase h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.showcase-description {
+    color: #ccc;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.game-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(148, 0, 211, 0.3);
+    border-radius: 15px;
     padding: 25px;
-    border-top: 1px solid var(--secondary);
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 20px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 25px rgba(148, 0, 211, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.call-to-action h3 {
+.game-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 40px rgba(148, 0, 211, 0.4);
+}
+
+.game-cover-placeholder {
+    width: 150px;
+    height: 200px;
+    background: #000;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px var(--primary);
+    flex-shrink: 0; /* Asegura que no se achique */
+}
+
+.game-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.game-info {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.game-info h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--primary);
+    font-size: 1.5rem;
     margin-bottom: 10px;
-    color: var(--secondary);
-    font-family: 'Orbitron';
 }
 
-.btn-sub {
-    display: inline-block;
-    margin-top: 15px;
-    background: var(--secondary);
+.game-description {
+    color: #bbb;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #4CAF50;
     color: #fff;
-    padding: 12px 30px;
+    padding: 12px 25px;
     border-radius: 5px;
     text-decoration: none;
-    font-family: 'Orbitron';
+    font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
-    box-shadow: 0 0 15px var(--secondary);
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
     transition: 0.3s;
 }
 
-.btn-sub:hover {
+.btn-download:hover {
+    background: #45a049;
+    box-shadow: 0 0 25px rgba(76, 175, 80, 0.8);
+    transform: translateY(-3px);
+}
+
+/* SECCIÓN SUSCRIBETE (Call to Action) */
+.call-to-action {
+    margin-top: 50px;
+    background: rgba(148, 0, 211, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px dashed var(--secondary);
+}
+
+.call-to-action h3 {
+    font-family: 'Orbitron';
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+
+.btn-sub-large {
+    display: inline-block;
+    margin-top: 15px;
+    background: var(--secondary);
+    color: white;
+    padding: 15px 35px;
+    text-decoration: none;
+    font-family: 'Orbitron';
+    border-radius: 5px;
+    box-shadow: 0 0 20px var(--secondary);
+    transition: 0.3s;
+}
+
+.btn-sub-large:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 25px var(--secondary);
+    box-shadow: 0 0 40px var(--secondary);
+}
+
+footer {
+    margin-top: 40px;
 }
 
 .back-home {
-    display: block;
-    margin-top: 30px;
-    color: #555;
+    color: #666;
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    transition: 0.3s;
 }
 
 .back-home:hover {
     color: var(--primary);
+}
+
+/* Media Query para Tabletas y Desktop (Diseño lateral para las tarjetas de juego) */
+@media (min-width: 768px) {
+    .game-card {
+        flex-direction: row; 
+        text-align: left;
+    }
+
+    .game-info {
+        text-align: left;
+    }
+}
 }
